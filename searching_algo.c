@@ -1,85 +1,99 @@
 #include <stdio.h>
-
-void bubbleSort(int arr[], int n) {
-    int i, j, temp;
-    for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+void bubble_sort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
-                // Swap arr[j] and arr[j + 1]
-                temp = arr[j];
+                int temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
             }
         }
     }
 }
-
-void linearSearch(int arr[], int n, int key) {
+int linear_search(int arr[], int n, int target) {
     for (int i = 0; i < n; i++) {
-        if (arr[i] == key) {
-            printf("Element %d found at index %d using Linear Search.\n", key, i);
-            return;
+        if (arr[i] == target) {
+            return i; 
         }
     }
-    printf("Element %d not found using Linear Search.\n", key);
+    return -1; 
 }
 
-void binarySearch(int arr[], int n, int key) {
-    int left = 0, right = n - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-
-        if (arr[mid] == key) {
-            printf("Element %d found at index %d using Binary Search.\n", key, mid);
-            return;
-        }
-        if (arr[mid] < key) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+int binary_search(int arr[], int target, int low, int high) {
+    if (low > high) {
+        return -1; 
     }
-    printf("Element %d not found using Binary Search.\n", key);
+
+    int mid = (low + high) / 2;
+
+    if (arr[mid] == target) {
+        return mid; 
+    } else if (target < arr[mid]) {
+        return binary_search(arr, target, low, mid - 1);
+    } else {
+        return binary_search(arr, target, mid + 1, high);
+    }
 }
 
 int main() {
-    int n, choice, key;
-
+    int n,target;
+    char choice;
+    do{
     printf("Enter the number of elements: ");
     scanf("%d", &n);
 
-    int arr[n];
-    printf("Enter %d elements:\n", n);
+    int arr[n],temp[n];
+    printf("Enter the elements:\n");
     for (int i = 0; i < n; i++) {
         scanf("%d", &arr[i]);
     }
-
-    printf("Choose search method:\n");
-    printf("1. Linear Search\n");
-    printf("2. Binary Search\n");
-    printf("Enter your choice (1 or 2): ");
-    scanf("%d", &choice);
-
-    printf("Enter the element to search: ");
-    scanf("%d", &key);
-
-    switch (choice) {
-        case 1:
-            linearSearch(arr, n, key);
-            break;
-        case 2:
-            bubbleSort(arr, n);
-            printf("Sorted array: ");
-            for (int i = 0; i < n; i++) {
-                printf("%d ", arr[i]);
-            }
-            printf("\n");
-            binarySearch(arr, n, key);
-            break;
-        default:
-            printf("Invalid choice.\n");
-            break;
+    for (int i = 0; i < n; i++) {
+        temp[i]=arr[i];
     }
+
+    
+        printf("\nChoose the search method:\n");
+        printf("1. Linear Search\n");
+        printf("2. Binary Search\n");
+        printf("Enter your choice (1 or 2): ");
+        int search_choice;
+        scanf("%d", &search_choice);
+
+
+        if (search_choice == 1) {
+        printf("Enter the element to search: ");
+        scanf("%d", &target);
+            int result = linear_search(arr, n, target);
+            if (result != -1) {
+                printf("Element found at index: %d\n", result);
+            } else {
+                printf("Element not found\n");
+            }
+        } else if (search_choice == 2) {
+            printf("Elements after sorting:\n");
+            bubble_sort(temp, n);
+            printArray(temp,n);
+            printf("Enter the element to search: ");
+            scanf("%d", &target);
+            int result = binary_search(temp, target, 0, n - 1);
+            if (result != -1) {
+                printf("Element found at index: %d\n", result);
+            } else {
+                printf("Element not found\n");
+            }
+        } else {
+            printf("Invalid choice!\n");
+        }
+
+        printf("Do you want to search again? (y/n): ");
+        scanf(" %c", &choice);
+    } while (choice == 'y' || choice == 'Y');
 
     return 0;
 }
