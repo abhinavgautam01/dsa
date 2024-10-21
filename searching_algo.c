@@ -43,8 +43,21 @@ int binary_search(int arr[], int target, int low, int high) {
 
 int main() {
     int n,target;
+        char search_choice;
     char choice;
     do{
+        input:
+        printf("\nChoose the search method:\n");
+        printf("1. Linear Search\n");
+        printf("2. Binary Search\n");
+        printf("Enter your choice (1 or 2): ");
+        scanf(" %c", &search_choice);
+
+
+        if(search_choice!= '1' && search_choice != '2'){
+            printf("invalid input ...\nplease select valid option...!\n");
+            goto input;
+        }
     printf("Enter the number of elements: ");
     scanf("%d", &n);
 
@@ -57,16 +70,7 @@ int main() {
         temp[i]=arr[i];
     }
 
-    
-        printf("\nChoose the search method:\n");
-        printf("1. Linear Search\n");
-        printf("2. Binary Search\n");
-        printf("Enter your choice (1 or 2): ");
-        int search_choice;
-        scanf("%d", &search_choice);
-
-
-        if (search_choice == 1) {
+        if (search_choice == '1') {
         printf("Enter the element to search: ");
         scanf("%d", &target);
             int result = linear_search(arr, n, target);
@@ -75,7 +79,7 @@ int main() {
             } else {
                 printf("Element not found\n");
             }
-        } else if (search_choice == 2) {
+        } else if (search_choice == '2') {
             printf("Elements after sorting:\n");
             bubble_sort(temp, n);
             printArray(temp,n);
