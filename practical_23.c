@@ -3,7 +3,7 @@
 #define MAX_SIZE 100  // Maximum size of the matrix
 
 // Function to get the index in the one-dimensional array
-int index(int row, int col) {
+int getIndex(int row, int col) {
     if (row < col) {
         return (col * (col + 1)) / 2 + row;  // Upper triangle
     } else {
@@ -13,12 +13,12 @@ int index(int row, int col) {
 
 // Function to set an element in the symmetric matrix
 void setElement(int *arr, int row, int col, int value) {
-    arr[index(row, col)] = value;
+    arr[getIndex(row, col)] = value;
 }
 
 // Function to get an element from the symmetric matrix
 int getElement(int *arr, int row, int col) {
-    return arr[index(row, col)];
+    return arr[getIndex(row, col)];
 }
 
 // Function to print the symmetric matrix
