@@ -44,7 +44,7 @@ struct Node *search(struct Node *head, int key)
     return NULL;
 }
 // insert
-void insertAtBeginning(struct node** head,int data){
+void insertAtBeginning(struct Node** head,int data){
     struct Node *newNode = createNode(data);
     newNode->next=*head;
     *head=newNode;
@@ -54,8 +54,8 @@ void insertAtBeginning(struct node** head,int data){
 
 int main()
 {
-    struct Node *head;
-    struct Node *temp;
+    struct Node *head = NULL;
+    struct Node *temp = NULL;
     int numNodes,data;
     // head = createNode(4);
     // head->next = createNode(5);
@@ -80,7 +80,7 @@ int main()
 
     printf("The created linked list is: ");
     display(head);
-        
+
     int find;
     printf("Enter element to be search :");
     scanf("%d", &find);
