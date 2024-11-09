@@ -51,16 +51,36 @@ void insertAtBeginning(struct node** head,int data){
     printf("Inserted %d at the beginning.\n",data);
 }
 
+
 int main()
 {
     struct Node *head;
+    struct Node *temp;
+    int numNodes,data;
+    // head = createNode(4);
+    // head->next = createNode(5);
+    // head->next->next = createNode(6);
+    
+    printf("Enter the number of nodes you want to create: ");
+    scanf("%d", &numNodes);
 
-    head = createNode(4);
-    head->next = createNode(5);
-    head->next->next = createNode(6);
-    
+    for (int i = 0; i < numNodes; i++) {
+        printf("Enter data for node %d: ", i + 1);
+        scanf("%d", &data);
+
+        struct Node* newNode = createNode(data);
+        
+        if (head == NULL) {
+            head = newNode; // Initialize head if it’s the first node
+        } else {
+            temp->next = newNode; // Link the previous node to the new one
+        }
+        temp = newNode; // Move temp to the new node
+    }
+
+    printf("The created linked list is: ");
     display(head);
-    
+        
     int find;
     printf("Enter element to be search :");
     scanf("%d", &find);
@@ -75,5 +95,6 @@ int main()
     {
         printf("%d not found in List 1.\n", find);
     }
+    return 0;
 
 }
