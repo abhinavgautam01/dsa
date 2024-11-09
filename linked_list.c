@@ -43,6 +43,13 @@ struct Node *search(struct Node *head, int key)
     }
     return NULL;
 }
+// insert
+void insertAtBeginning(struct node** head,int data){
+    struct Node *newNode = createNode(data);
+    newNode->next=*head;
+    *head=newNode;
+    printf("Inserted %d at the beginning.\n",data);
+}
 
 int main()
 {
