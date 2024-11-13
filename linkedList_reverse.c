@@ -45,6 +45,29 @@ void insertAtBeginning(struct Node** head, int data) {
     *head = newNode;
 }
 
+void insertAtEnd(struct Node** head, int data) {
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+
+// Recursive function to build the reversed linked list
+void f(struct Node* head, struct Node** reversedHead) {
+    if (head) {
+        // Traverse to the end of the original list
+        f(head->next, reversedHead);
+        insertAtEnd(reversedHead, head->data);
+    }
+}
+
 // void reverse(struct Node** head)
 // {
 //     struct Node *newNode = NULL;
@@ -57,26 +80,33 @@ void insertAtBeginning(struct Node** head, int data) {
     
 // }
 
+// void f(struct Node * head){
+//     if(head){
+//         f(head->next);
+//         printf("%d -> ", head->data);
+//     }
+// }
+
 void reverse(struct Node** head) {
-    struct Node* prev = NULL;
+    struct Node* backNode = NULL;
     struct Node* temp = *head;
-    struct Node* next = NULL;
-    while (temp != NULL) {
-        next = temp->next;
-        temp->next = prev;
-        prev = temp;
-        temp = next;
+    struct Node* nextNode = NULL;
+    while (temp) {
+        nextNode = temp->next;
+        temp->next = backNode;
+        backNode = temp;
+        temp = nextNode;
     }
-    *head = prev;
+    *head = backNode;
     printf("List reversed.\n");
 }
 
-// Stack after entering calls (top to bottom): reverseRecursive(4), reverseRecursive(3), reverseRecursive(2), reverseRecursive(1)
+// Stack after entering calls : recursiveReverse(4), recursiveReverse(3), recursiveReverse(2), recursiveReverse(1)
 // Unwinding the stack (reversing pointers at each return):
-// Returning reverseRecursive(4): Reversal begins from the last node.
-// Returning reverseRecursive(3): Adds 4 -> 3.
-// Returning reverseRecursive(2): Adds 3 -> 2.
-// Returning reverseRecursive(1): Adds 2 -> 1.
+// Returning recursiveReverse(4): Reversal begins from the last node.
+// Returning recursiveReverse(3): Adds 4 -> 3.
+// Returning recursiveReverse(2): Adds 3 -> 2.
+// Returning recursiveReverse(1): Adds 2 -> 1.
 // Final output is 4 -> 3 -> 2 -> 1 -> NULL.
 
 // Example Execution for 1 -> 2 -> 3 -> 4 -> NULL
@@ -94,15 +124,15 @@ void recursiveReverse(struct Node** head) {
     }
 
     // Recursive call to reverse the rest of the list
-    struct Node* rest = (*head)->next;
-    recursiveReverse(&rest);
+    struct Node* rev = (*head)->next;
+    recursiveReverse(&rev);
 
     // Reversing pointers
     (*head)->next->next = *head;
     (*head)->next = NULL;
 
     // Update head to the new head of the reversed list
-    *head = rest;
+    *head = rev;
 }
 
 int main(){
@@ -110,6 +140,7 @@ int main(){
     int value,num,i;
     struct Node *head = NULL;
     struct Node *rev =NULL;
+    struct Node* reversedHead = NULL;
     printf("Enter number of nodes for your linked list : ");
     scanf("%d",&num);
     for(i=0;i<num;i++){
@@ -117,10 +148,17 @@ int main(){
         scanf("%d",&value);
         insert(&head,value);
     }
+
+    
     printf("Entered elements : \n");
     display(head);
-    recursiveReverse(&head);
-    printf("Elements after reversing(by iteration) : \n");    
-    display(head);
+    f(head, &reversedHead);
+    // Print the reversed linked list
+    printf("Reversed Linked List: ");
+    display(reversedHead);
+
+    // recursiveReverse(&head);
+    // printf("Elements after reversing(by iteration) : \n");    
+    // display(head);
 
 }
