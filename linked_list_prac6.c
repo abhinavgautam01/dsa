@@ -1,3 +1,4 @@
+// Implement Linked List. Include functions for insertion, deletion and search of a number, reverse the list and concatenate two linked lists.
 #include <stdio.h>
 #include <stdlib.h>
 

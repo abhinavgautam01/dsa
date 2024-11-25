@@ -1,3 +1,4 @@
+// WAP to implement Symmetric Matrix using one-dimensional array.
 #include <stdio.h>
 
 #define MAX_SIZE 100  // Maximum size of the matrix

@@ -1,3 +1,4 @@
+// WAP to implement Lower Triangular Matrix using one-dimensional array.
 #include <stdio.h>
 
 #define MAX 100 // Maximum size of the matrix

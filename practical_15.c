@@ -1,3 +1,4 @@
+// WAP to scan a polynomial using linked list and add two polynomials.
 #include <stdio.h>
 #include <stdlib.h>
 

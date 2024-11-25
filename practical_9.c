@@ -1,3 +1,4 @@
+// Perform Stack operations using Linked List implementation.
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,3 +1,4 @@
+// WAP to reverse the order of the elements in the stack using additional Queue.
 #include <stdio.h>
 #include <stdlib.h>
 
