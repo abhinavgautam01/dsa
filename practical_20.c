@@ -46,10 +46,6 @@ int main() {
 
     // Reverse the stack
     reverseStack(&original);
-
-    printf("Reversed Stack: ");
-    display(&original);
-
     return 0;
 }
 
@@ -108,6 +104,8 @@ void reverseStack(Stack* original) {
     while (!isEmpty(original)) {
         push(&auxiliary, pop(original));
     }
+    printf("Reversed Stack: ");
+    display(&auxiliary);
 
     // Move all elements back to the original stack
     while (!isEmpty(&auxiliary)) {
