@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 // Function prototypes
-unsigned long long factorialRecursion(int n);
-unsigned long long factorialIteration(int n);
+int factorialRecursion(int n);
+int factorialIteration(int n);
 void printFactors(int n);
 
 int main() {
@@ -14,11 +14,11 @@ int main() {
     scanf("%d", &number);
 
     // Factorial using recursion
-    unsigned long long factRec = factorialRecursion(number);
+    int factRec = factorialRecursion(number);
     printf("Factorial of %d (using recursion) is: %llu\n", number, factRec);
 
     // Factorial using iteration
-    unsigned long long factIter = factorialIteration(number);
+    int factIter = factorialIteration(number);
     printf("Factorial of %d (using iteration) is: %llu\n", number, factIter);
 
     // Print factors
@@ -29,7 +29,7 @@ int main() {
 }
 
 // Function to calculate factorial using recursion
-unsigned long long factorialRecursion(int n) {
+int factorialRecursion(int n) {
     if (n == 0 || n == 1) {
         return 1;
     }
@@ -37,8 +37,8 @@ unsigned long long factorialRecursion(int n) {
 }
 
 // Function to calculate factorial using iteration
-unsigned long long factorialIteration(int n) {
-    unsigned long long result = 1;
+int factorialIteration(int n) {
+    int result = 1;
     for (int i = 2; i <= n; i++) {
         result *= i;
     }

@@ -1,82 +1,69 @@
-// Perform Queue operations using Array implementation.
 #include <stdio.h>
 #include <stdlib.h>
 
 #define MAX 100 // Maximum size of the queue
 
-// Define the structure for the queue
-struct Queue {
-    int arr[MAX];
-    int front;
-    int rear;
-};
-
-// Function to initialize the queue
-struct Queue* createQueue() {
-    struct Queue* queue = (struct Queue*)malloc(sizeof(struct Queue));
-    queue->front = -1;
-    queue->rear = -1;
-    return queue;
-}
+int queue[MAX];  // Array to store the queue elements
+int front = -1;  // Front of the queue
+int rear = -1;   // Rear of the queue
 
 // Function to check if the queue is full
-int isFull(struct Queue* queue) {
-    return (queue->rear + 1) % MAX == queue->front;
+int isFull() {
+    return (rear + 1) % MAX == front;
 }
 
 // Function to check if the queue is empty
-int isEmpty(struct Queue* queue) {
-    return queue->front == -1;
+int isEmpty() {
+    return front == -1;
 }
 
 // Function to enqueue (add) an element to the queue
-void enqueue(struct Queue* queue, int data) {
-    if (isFull(queue)) {
+void enqueue(int data) {
+    if (isFull()) {
         printf("Queue Overflow! Cannot enqueue %d to queue.\n", data);
         return;
     }
-    if (isEmpty(queue)) {
-        queue->front = 0; // Set front to 0 if the queue is empty
+    if (isEmpty()) {
+        front = 0; // Set front to 0 if the queue is empty
     }
-    queue->rear = (queue->rear + 1) % MAX; // Circular increment
-    queue->arr[queue->rear] = data;
+    rear = (rear + 1) % MAX; // Circular increment
+    queue[rear] = data;
     printf("%d enqueued to queue\n", data);
 }
 
 // Function to dequeue (remove) an element from the queue
-int dequeue(struct Queue* queue) {
-    if (isEmpty(queue)) {
+int dequeue() {
+    if (isEmpty()) {
         printf("Queue Underflow! Cannot dequeue from an empty queue.\n");
         return -1; // Indicates that the queue is empty
     }
-    int dequeuedData = queue->arr[queue->front];
-    if (queue->front == queue->rear) {
+    int dequeuedData = queue[front];
+    if (front == rear) {
         // Queue is now empty after this dequeue
-        queue->front = queue->rear = -1;
+        front = rear = -1;
     } else {
-        queue->front = (queue->front + 1) % MAX; // Circular increment
+        front = (front + 1) % MAX; // Circular increment
     }
     printf("%d dequeued from queue\n", dequeuedData);
     return dequeuedData;
 }
 
 // Function to display the queue
-void display(struct Queue* queue) {
-    if (isEmpty(queue)) {
+void display() {
+    if (isEmpty()) {
         printf("Queue is empty.\n");
         return;
     }
     printf("Queue elements:\n");
-    int i = queue->front;
+    int i = front;
     while (1) {
-        printf("%d\n", queue->arr[i]);
-        if (i == queue->rear) break; // Stop when reaching the rear
+        printf("%d\n", queue[i]);
+        if (i == rear) break; // Stop when reaching the rear
         i = (i + 1) % MAX; // Circular increment
     }
 }
 
 int main() {
-    struct Queue* queue = createQueue();
     int choice, data;
 
     while (1) {
@@ -92,16 +79,15 @@ int main() {
             case 1:
                 printf("Enter the value to enqueue: ");
                 scanf("%d", &data);
-                enqueue(queue, data);
+                enqueue(data);
                 break;
             case 2:
-                dequeue(queue);
+                dequeue();
                 break;
             case 3:
-                display(queue);
+                display();
                 break;
             case 4:
-                free(queue); // Clean up the queue memory
                 return 0;
             default:
                 printf("Invalid choice. Please try again.\n");

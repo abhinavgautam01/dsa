@@ -3,34 +3,34 @@
 #include <stdlib.h>
 
 // Define the structure for a node in the BST
-typedef struct Node {
+struct Node {
     int data;
     struct Node* left;
     struct Node* right;
-} Node;
+};
 
 // Function prototypes
-Node* createNode(int data);
-Node* insertRecursive(Node* root, int data);
-Node* insertIterative(Node* root, int data);
-Node* deleteByCopy(Node* root, int data);
-Node* deleteByMerge(Node* root, int data);
-Node* search(Node* root, int data);
-void preorderRecursive(Node* root);
-void inorderRecursive(Node* root);
-void postorderRecursive(Node* root);
-void preorderIterative(Node* root);
-void inorderIterative(Node* root);
-void postorderIterative(Node* root);
-void levelOrderTraversal(Node* root);
-int countNonLeafNodes(Node* root);
-int countLeafNodes(Node* root);
-int heightOfTree(Node* root);
-Node* mirrorTree(Node* root);
-int areTreesEqual(Node* root1, Node* root2);
+struct Node* createNode(int data);
+struct Node* insertRecursive(struct Node* root, int data);
+struct Node* insertIterative(struct Node* root, int data);
+struct Node* deleteByCopy(struct Node* root, int data);
+struct Node* deleteByMerge(struct Node* root, int data);
+struct Node* search(struct Node* root, int data);
+void preorderRecursive(struct Node* root);
+void inorderRecursive(struct Node* root);
+void postorderRecursive(struct Node* root);
+void preorderIterative(struct Node* root);
+void inorderIterative(struct Node* root);
+void postorderIterative(struct Node* root);
+void levelOrderTraversal(struct Node* root);
+int countNonLeafNodes(struct Node* root);
+int countLeafNodes(struct Node* root);
+int heightOfTree(struct Node* root);
+struct Node* mirrorTree(struct Node* root);
+int areTreesEqual(struct Node* root1, struct Node* root2);
 
 int main() {
-    Node* root = NULL;
+    struct Node* root = NULL;
     int choice, value;
 
     do {
@@ -80,7 +80,7 @@ int main() {
             case 5:
                 printf("Enter value to search: ");
                 scanf("%d", &value);
-                Node* foundNode = search(root, value);
+                struct Node* foundNode = search(root, value);
                 if (foundNode) {
                     printf("Node %d found.\n", value);
                 } else {
@@ -136,7 +136,7 @@ int main() {
                 printf("Mirror image created.\n");
                 break;
             case 17: {
-                Node* tree2 = NULL;
+                struct Node* tree2 = NULL;
                 printf("Enter values for the second tree (enter -1 to stop): ");
                 while (1) {
                     scanf("%d", &value);
@@ -162,15 +162,15 @@ int main() {
 }
 
 // Function to create a new node
-Node* createNode(int data) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = data;
     newNode->left = newNode->right = NULL;
     return newNode;
 }
 
 // Recursive insertion
-Node* insertRecursive(Node* root, int data) {
+struct Node* insertRecursive(struct Node* root, int data) {
     if (root == NULL) {
         return createNode(data);
     }
@@ -183,14 +183,14 @@ Node* insertRecursive(Node* root, int data) {
 }
 
 // Iterative insertion
-Node* insertIterative(Node* root, int data) {
-    Node* newNode = createNode(data);
+struct Node* insertIterative(struct Node* root, int data) {
+    struct Node* newNode = createNode(data);
     if (root == NULL) {
         return newNode;
     }
     
-    Node* current = root;
-    Node* parent = NULL;
+    struct Node* current = root;
+    struct Node* parent = NULL;
 
     while (current != NULL) {
         parent = current;
@@ -212,7 +212,7 @@ Node* insertIterative(Node* root, int data) {
 }
 
 // Delete by copying
-Node* deleteByCopy(Node* root, int data) {
+struct Node* deleteByCopy(struct Node* root, int data) {
     if (root == NULL) return NULL;
 
     if (data < root->data) {
@@ -222,16 +222,16 @@ Node* deleteByCopy(Node* root, int data) {
     } else {
         // Node found
         if (root->left == NULL) {
-            Node* temp = root->right;
+            struct Node* temp = root->right;
             free(root);
             return temp;
         } else if (root->right == NULL) {
-            Node* temp = root->left;
+            struct Node* temp = root->left;
             free(root);
             return temp;
         } else {
             // Node with two children: find inorder successor
-            Node* successor = root->right;
+            struct Node* successor = root->right;
             while (successor->left != NULL) {
                 successor = successor->left;
             }
@@ -243,7 +243,7 @@ Node* deleteByCopy(Node* root, int data) {
 }
 
 // Delete by merging
-Node* deleteByMerge(Node* root, int data) {
+struct Node* deleteByMerge(struct Node* root, int data) {
     if (root == NULL) return NULL;
 
     if (data < root->data) {
@@ -253,22 +253,22 @@ Node* deleteByMerge(Node* root, int data) {
     } else {
         // Node found
         if (root->left == NULL) {
-            Node* temp = root->right;
+            struct Node* temp = root->right;
             free(root);
             return temp;
         } else if (root->right == NULL) {
-            Node* temp = root->left;
+            struct Node* temp = root->left;
             free(root);
             return temp;
         } else {
             // Merge left and right subtrees
-            Node* temp = root->left;
-            Node* rightSubtree = root->right;
+            struct Node* temp = root->left;
+            struct Node* rightSubtree = root->right;
             free(root);
             if (temp == NULL) {
                 return rightSubtree;
             }
-            Node* maxNode = temp;
+            struct Node* maxNode = temp;
             while (maxNode->right != NULL) {
                 maxNode = maxNode->right;
             }
@@ -280,7 +280,7 @@ Node* deleteByMerge(Node* root, int data) {
 }
 
 // Search for a number in the BST
-Node* search(Node* root, int data) {
+struct Node* search(struct Node* root, int data) {
     if (root == NULL || root->data == data) {
         return root;
     }
@@ -291,7 +291,7 @@ Node* search(Node* root, int data) {
 }
 
 // Preorder traversal (Recursive)
-void preorderRecursive(Node* root) {
+void preorderRecursive(struct Node* root) {
     if (root == NULL) return;
     printf("%d ", root->data);
     preorderRecursive(root->left);
@@ -299,7 +299,7 @@ void preorderRecursive(Node* root) {
 }
 
 // Inorder traversal (Recursive)
-void inorderRecursive(Node* root) {
+void inorderRecursive(struct Node* root) {
     if (root == NULL) return;
     inorderRecursive(root->left);
     printf("%d ", root->data);
@@ -307,7 +307,7 @@ void inorderRecursive(Node* root) {
 }
 
 // Postorder traversal (Recursive)
-void postorderRecursive(Node* root) {
+void postorderRecursive(struct Node* root) {
     if (root == NULL) return;
     postorderRecursive(root->left);
     postorderRecursive(root->right);
@@ -315,15 +315,15 @@ void postorderRecursive(Node* root) {
 }
 
 // Preorder traversal (Iterative)
-void preorderIterative(Node* root) {
+void preorderIterative(struct Node* root) {
     if (root == NULL) return;
 
-    Node* stack[100]; // Simple stack implementation using array
+    struct Node* stack[100]; // Simple stack implementation using array
     int top = -1;
     stack[++top] = root;
 
     while (top >= 0) {
-        Node* current = stack[top--];
+        struct Node* current = stack[top--];
         printf("%d ", current->data);
         if (current->right != NULL) {
             stack[++top] = current->right;
@@ -335,10 +335,10 @@ void preorderIterative(Node* root) {
 }
 
 // Inorder traversal (Iterative)
-void inorderIterative(Node* root) {
-    Node* stack[100];
+void inorderIterative(struct Node* root) {
+    struct Node* stack[100];
     int top = -1;
-    Node* current = root;
+    struct Node* current = root;
 
     while (current != NULL || top >= 0) {
         while (current != NULL) {
@@ -352,15 +352,15 @@ void inorderIterative(Node* root) {
 }
 
 // Postorder traversal (Iterative)
-void postorderIterative(Node* root) {
+void postorderIterative(struct Node* root) {
     if (root == NULL) return;
 
-    Node* stack1[100], *stack2[100];
+    struct Node* stack1[100], *stack2[100];
     int top1 = -1, top2 = -1;
     stack1[++top1] = root;
 
     while (top1 >= 0) {
-        Node* current = stack1[top1--];
+        struct Node* current = stack1[top1--];
         stack2[++top2] = current;
         if (current->left != NULL) {
             stack1[++top1] = current->left;
@@ -376,15 +376,15 @@ void postorderIterative(Node* root) {
 }
 
 // Level order traversal
-void levelOrderTraversal(Node* root) {
+void levelOrderTraversal(struct Node* root) {
     if (root == NULL) return;
 
-    Node* queue[100];
+    struct Node* queue[100];
     int front = 0, rear = -1;
     queue[++rear] = root;
 
     while (front <= rear) {
-        Node* current = queue[front++];
+        struct Node* current = queue[front++];
         printf("%d ", current->data);
 
         if (current->left != NULL) {
@@ -397,21 +397,21 @@ void levelOrderTraversal(Node* root) {
 }
 
 // Count non-leaf nodes
-int countNonLeafNodes(Node* root) {
+int countNonLeafNodes(struct Node* root) {
     if (root == NULL) return 0;
     if (root->left == NULL && root->right == NULL) return 0;
     return 1 + countNonLeafNodes(root->left) + countNonLeafNodes(root->right);
 }
 
 // Count leaf nodes
-int countLeafNodes(Node* root) {
+int countLeafNodes(struct Node* root) {
     if (root == NULL) return 0;
     if (root->left == NULL && root->right == NULL) return 1;
     return countLeafNodes(root->left) + countLeafNodes(root->right);
 }
 
 // Height of the tree
-int heightOfTree(Node* root) {
+int heightOfTree(struct Node* root) {
     if (root == NULL) return -1; // Height of an empty tree is -1
     int leftHeight = heightOfTree(root->left);
     int rightHeight = heightOfTree(root->right);
@@ -419,17 +419,17 @@ int heightOfTree(Node* root) {
 }
 
 // Create a mirror image of the tree
-Node* mirrorTree(Node* root) {
+struct Node* mirrorTree(struct Node* root) {
     if (root == NULL) return NULL;
-    Node* left = mirrorTree(root->left);
-    Node* right = mirrorTree(root->right);
+    struct Node* left = mirrorTree(root->left);
+    struct Node* right = mirrorTree(root->right);
     root->left = right;
     root->right = left;
     return root;
 }
 
 // Check if two trees are equal
-int areTreesEqual(Node* root1, Node* root2) {
+int areTreesEqual(struct Node* root1, struct Node* root2) {
     if (root1 == NULL && root2 == NULL) return 1;
     if (root1 == NULL || root2 == NULL) return 0;
     return (root1->data == root2->data) && 
